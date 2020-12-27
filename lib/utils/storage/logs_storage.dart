@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:f_logs/f_logs.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../f_logs.dart';
 
 class LogsStorage {
   static final LogsStorage _singleton = LogsStorage._();
@@ -32,7 +33,7 @@ class LogsStorage {
     //creating directory
     Directory(path).create()
         // The created directory is returned as a Future.
-        .then((Directory directory) {
+        .then((directory) {
       print(directory.path);
     });
 
@@ -59,7 +60,7 @@ class LogsStorage {
       var contents = await file.readAsString();
 
       return contents;
-    } catch (e) {
+    } on dynamic catch (_) {
       // If encountering an error, return error message
       return "Unable to read file";
     }

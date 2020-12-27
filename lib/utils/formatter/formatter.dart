@@ -1,5 +1,6 @@
-import 'package:f_logs/f_logs.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../f_logs.dart';
 
 class Formatter {
   static String format(Log log, LogsConfig config) {

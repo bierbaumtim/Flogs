@@ -1,4 +1,4 @@
-import 'package:f_logs/f_logs.dart';
+import '../../f_logs.dart';
 
 class LogsConfig {
   /// print logs in Logcat
@@ -61,5 +61,6 @@ class LogsConfig {
   String encryptionKey = "";
 
   /// Timestamp format
-  String timestampFormat = TimestampFormat.TIME_FORMAT_READABLE; //Timestamp format
+  String timestampFormat =
+      TimestampFormat.TIME_FORMAT_READABLE; //Timestamp format
 }
