@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 import '../../f_logs.dart';
 
@@ -25,8 +24,8 @@ class DateTimeUtils {
         .format(fiftyDaysFromNow);
   }
 
-  static int getStartAndEndTimestamps({@required FilterType type}) {
-    int startTimeInMillis;
+  static int getStartAndEndTimestamps({required FilterType type}) {
+    var startTimeInMillis = 0;
 
     //filter types
     const lastHour = "FilterType.LAST_HOUR";

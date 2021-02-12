@@ -48,9 +48,9 @@ class FlogDao {
   }
 
   /// Deletes all Logs from Database which match the given `filters`.
-  Future<int> deleteAllLogsByFilter({List<Filter> filters}) async {
+  Future<int> deleteAllLogsByFilter({List<Filter>? filters}) async {
     final finder = Finder(
-      filter: Filter.and(filters),
+      filter: Filter.and(filters ?? <Filter>[]),
     );
 
     var deleted = await _flogsStore.delete(
@@ -68,10 +68,10 @@ class FlogDao {
   }
 
   /// Fetch all Logs which match the given `filters` and sorts them by `dataLogType`
-  Future<List<Log>> getAllSortedByFilter({List<Filter> filters}) async {
+  Future<List<Log>> getAllSortedByFilter({List<Filter>? filters}) async {
     //creating finder
     final finder = Finder(
-        filter: Filter.and(filters),
+        filter: Filter.and(filters ?? <Filter>[]),
         sortOrders: [SortOrder(DBConstants.FIELD_DATA_LOG_TYPE)]);
 
     final recordSnapshots = await _flogsStore.find(

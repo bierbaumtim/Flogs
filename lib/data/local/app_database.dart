@@ -15,7 +15,7 @@ class AppDatabase {
   static AppDatabase get instance => _singleton;
 
   // Completer is used for transforming synchronous code into asynchronous code.
-  Completer<Database> _dbOpenCompleter;
+  Completer<Database>? _dbOpenCompleter;
 
   /// Key for encryption
   String encryptionKey = "";
@@ -26,7 +26,7 @@ class AppDatabase {
 
   /// Database object accessor
   Future<Database> get database async {
-    /// If completer is null, AppDatabaseClass is newly instantiated, 
+    /// If completer is null, AppDatabaseClass is newly instantiated,
     /// so database is not yet opened
     if (_dbOpenCompleter == null) {
       _dbOpenCompleter = Completer();
@@ -34,10 +34,11 @@ class AppDatabase {
       /// Calling _openDatabase will also complete the completer with database instance
       _openDatabase();
     }
+
     /// If the database is already opened, awaiting the future will happen instantly.
     /// Otherwise, awaiting the returned future will take some time - until complete() is called
     /// on the Completer in _openDatabase() below.
-    return _dbOpenCompleter.future;
+    return _dbOpenCompleter!.future;
   }
 
   Future<void> _openDatabase() async {
@@ -45,7 +46,7 @@ class AppDatabase {
     final appDocumentDir = await getApplicationDocumentsDirectory();
 
     // Path with the form: /platform-specific-directory/demo.db
-    final dbPath = join(appDocumentDir.path, DBConstants.DB_NAME);
+    final dbPath = join(appDocumentDir!.path, DBConstants.DB_NAME);
 
     // Check to see if encryption is set, then provide codec
     // else init normal db with path
@@ -62,6 +63,6 @@ class AppDatabase {
     }
 
     // Any code awaiting the Completer's future will now start executing
-    _dbOpenCompleter.complete(database);
+    _dbOpenCompleter!.complete(database);
   }
 }
