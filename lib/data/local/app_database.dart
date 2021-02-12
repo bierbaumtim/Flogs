@@ -40,7 +40,7 @@ class AppDatabase {
     return _dbOpenCompleter.future;
   }
 
-  Future _openDatabase() async {
+  Future<void> _openDatabase() async {
     // Get a platform-specific directory where persistent app data can be stored
     final appDocumentDir = await getApplicationDocumentsDirectory();
 
@@ -49,7 +49,7 @@ class AppDatabase {
 
     // Check to see if encryption is set, then provide codec
     // else init normal db with path
-    var database;
+    Database database;
     if (FLog.getDefaultConfigurations().encryptionEnabled &&
         FLog.getDefaultConfigurations().encryptionKey.isNotEmpty) {
       // Initialize the encryption codec with a user password

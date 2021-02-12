@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:sembast/sembast.dart';
 import 'package:stack_trace/stack_trace.dart';
@@ -182,7 +183,7 @@ class FLog {
   ///
   /// This will return array of logs and print them as a string using StringBuffer()
   static void printLogs() async {
-    print(Constants.PRINT_LOG_MSG);
+    debugPrint(Constants.PRINT_LOG_MSG);
 
     _getAllLogs().then((logs) {
       var buffer = StringBuffer();
@@ -191,9 +192,9 @@ class FLog {
         logs.forEach((log) {
           buffer.write(Formatter.format(log, _config));
         });
-        print(buffer.toString());
+        debugPrint(buffer.toString());
       } else {
-        print("No logs found!");
+        debugPrint("No logs found!");
       }
       buffer.clear();
     });
@@ -209,7 +210,7 @@ class FLog {
     int endTimeInMillis,
     FilterType filterType,
   }) async {
-    print(Constants.PRINT_DATA_LOG_MSG);
+    debugPrint(Constants.PRINT_DATA_LOG_MSG);
 
     _getAllSortedByFilter(
             filters: Filters.generateFilters(
@@ -225,9 +226,9 @@ class FLog {
         logs.forEach((log) {
           buffer.write(Formatter.format(log, _config));
         });
-        print(buffer.toString());
+        debugPrint(buffer.toString());
       } else {
-        print("No logs found!");
+        debugPrint("No logs found!");
       }
       buffer.clear();
     });
@@ -237,7 +238,7 @@ class FLog {
   ///
   /// This will print logs stored in a file as string using StringBuffer()
   static void printFileLogs() async {
-    print(Constants.PRINT_LOG_MSG);
+    debugPrint(Constants.PRINT_LOG_MSG);
 
     _storage.readLogsToFile().then(print);
   }
@@ -248,7 +249,7 @@ class FLog {
   static Future<File> exportLogs() async {
     var buffer = StringBuffer();
 
-    print(Constants.PRINT_EXPORT_MSG);
+    debugPrint(Constants.PRINT_EXPORT_MSG);
 
     //get all logs and write to file
     final logs = await _getAllLogs();
@@ -258,7 +259,7 @@ class FLog {
     });
 
     final file = await _storage.writeLogsToFile(buffer.toString());
-    print(buffer.toString());
+    debugPrint(buffer.toString());
     buffer.clear();
     return file;
   }
@@ -320,7 +321,7 @@ class FLog {
   /// This will clear all the logs stored in database
   static Future<void> clearLogs() async {
     await _flogDao.deleteAll();
-    print("Logs Cleared!");
+    debugPrint("Logs Cleared!");
   }
 
   /// deleteAllLogsByFilter
@@ -331,7 +332,7 @@ class FLog {
     //if not then don't do anything
     if (_isLogsConfigValid()) {
       var deleted = await _flogDao.deleteAllLogsByFilter(filters: filters);
-      print("Deleted $deleted logs");
+      debugPrint("Deleted $deleted logs");
     } else {
       throw Exception(Constants.EXCEPTION_NOT_INIT);
     }
@@ -457,7 +458,7 @@ class FLog {
 
         //check to see if logcat debugging is enabled
         if (_config.isDebuggable) {
-          print(Formatter.format(log, _config));
+          debugPrint(Formatter.format(log, _config));
         }
       }
     } else {

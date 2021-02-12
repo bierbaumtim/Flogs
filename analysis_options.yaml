@@ -1,8 +1,19 @@
 include: package:effective_dart/analysis_options.yaml
 
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    # implicit-dynamic: false
+  errors:
+    # treat missing required parameters as a warning (not a hint)
+    missing_required_param: error
+    # treat missing returns as a warning (not a hint)
+    missing_return: error
+    return_of_invalid_type: error
+    argument_type_not_assignable: warning
+    public_member_api_docs: ignore
+    lines_longer_than_80_chars: ignore
+
 linter:
   rules:
     constant_identifier_names: false
-    avoid_function_literals_in_foreach_calls: false
-    public_member_api_docs: false
-    lines_longer_than_80_chars: false

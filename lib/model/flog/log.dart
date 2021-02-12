@@ -29,7 +29,7 @@ class Log {
 
   /// Converts class to json
   Map<String, dynamic> toJson() {
-    return {
+    return <String, dynamic>{
       'className': className,
       'methodName': methodName,
       'text': text,
@@ -45,15 +45,15 @@ class Log {
   /// create `Log` from json
   static Log fromJson(Map<String, dynamic> json) {
     return Log(
-      className: json['className'],
-      methodName: json['methodName'],
-      text: json['text'],
-      timestamp: json['timestamp'],
-      timeInMillis: json['timeInMillis'],
-      exception: json['exception'],
-      dataLogType: json['dataLogType'],
-      logLevel: LogLevelConverter.fromStringToEnum(json['logLevel']),
-      stacktrace: json['stacktrace'],
+      className: json['className'] as String,
+      methodName: json['methodName'] as String,
+      text: json['text'] as String,
+      timestamp: json['timestamp'] as String,
+      timeInMillis: json['timeInMillis'] as int,
+      exception: json['exception'] as String,
+      dataLogType: json['dataLogType'] as String,
+      logLevel: LogLevelConverter.fromStringToEnum(json['logLevel'] as String),
+      stacktrace: json['stacktrace'] as String,
     );
   }
 }

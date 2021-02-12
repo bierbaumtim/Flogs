@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
@@ -41,7 +42,7 @@ class DateTimeUtils {
         var now = DateTime.now();
         // last hour
         var lh = now.subtract(Duration(hours: 1));
-        print(lh);
+        debugPrint('$lh');
         startTimeInMillis = lh.millisecondsSinceEpoch;
         break;
       case twentyFourHour:
@@ -51,7 +52,7 @@ class DateTimeUtils {
         var tfh = now.subtract(Duration(hours: 24));
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
-          print(tfh);
+          debugPrint('$tfh');
         }
 
         startTimeInMillis = tfh.millisecondsSinceEpoch;
@@ -63,7 +64,7 @@ class DateTimeUtils {
         var td = DateTime(now.year, now.month, now.day);
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
-          print(td);
+          debugPrint('$td');
         }
 
         startTimeInMillis = td.millisecondsSinceEpoch;
@@ -77,7 +78,7 @@ class DateTimeUtils {
         var w = td.subtract(Duration(days: 7));
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
-          print(w);
+          debugPrint('$w');
         }
 
         startTimeInMillis = w.millisecondsSinceEpoch;
@@ -89,7 +90,7 @@ class DateTimeUtils {
 
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
-          print(all);
+          debugPrint('$all');
         }
 
         startTimeInMillis = all.millisecondsSinceEpoch;

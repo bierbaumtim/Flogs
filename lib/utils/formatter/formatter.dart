@@ -105,7 +105,7 @@ class Formatter {
     var output = "";
 
     if (log != null && fieldOrder.isNotEmpty) {
-      fieldOrder.forEach((fieldName) {
+      for (var fieldName in fieldOrder) {
         if (fieldName == FieldName.CLASSNAME) {
           output += "$openingDivider${log.className}$closingDivider ";
         }
@@ -131,7 +131,7 @@ class Formatter {
               ? "$openingDivider${log.stacktrace}$closingDivider "
               : "";
         }
-      });
+      }
 
       if (isDevelopmentDebuggingEnabled) {
         output += !kReleaseMode
