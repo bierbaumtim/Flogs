@@ -60,7 +60,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //runtime permission
-  final PermissionGroup _permissionGroup = PermissionGroup.storage;
+  final _permissionGroup = Permission.storage;
 
   @override
   void initState() {
@@ -89,14 +89,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildTextField() {
+  Widget _buildTextField() {
     return CircularProgressIndicator();
 //    return TextFormField(
 //      decoration: InputDecoration(hintText: "Enter text"),
 //    );
   }
 
-  _buildRow1(BuildContext context) {
+  Widget _buildRow1(BuildContext context) {
     return Row(
       children: <Widget>[
         _buildButton("Log Event", () {
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildRow2() {
+  Widget _buildRow2() {
     return Row(
       children: <Widget>[
         _buildButton("Export Logs", () {
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildRow3() {
+  Widget _buildRow3() {
     return Row(
       children: <Widget>[
         _buildButton("Print File Logs", () {
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildRow4() {
+  Widget _buildRow4() {
     return Row(
       children: <Widget>[
         _buildButton("Log Event with StackTrace", () {
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildButton(String title, VoidCallback onPressed) {
+  Widget _buildButton(String title, VoidCallback onPressed) {
     return Expanded(
       child: MaterialButton(
         onPressed: onPressed,
@@ -213,9 +213,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   //permission methods:---------------------------------------------------------
-  Future<void> requestPermission(PermissionGroup permission) async {
-    final List<PermissionGroup> permissions = <PermissionGroup>[permission];
-    final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
-        await PermissionHandler().requestPermissions(permissions);
+  Future<void> requestPermission(Permission permission) async {
+    await permission.request();
   }
 }
