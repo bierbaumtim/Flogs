@@ -9,10 +9,12 @@ class _XXTeaEncoder extends Converter<Map<String, dynamic>, String> {
   _XXTeaEncoder(this.key);
 
   @override
-  String convert(Map<String, dynamic> input) => xxtea.encryptToString(
+  String convert(Map<String, dynamic> input) =>
+      xxtea.encryptToString(
         json.encode(input),
         key,
-      );
+      ) ??
+      '';
 }
 
 class _XXTeaDecoder extends Converter<String, Map<String, dynamic>> {
@@ -22,7 +24,7 @@ class _XXTeaDecoder extends Converter<String, Map<String, dynamic>> {
 
   @override
   Map<String, dynamic> convert(String input) {
-    var result = json.decode(xxtea.decryptToString(input, key));
+    var result = json.decode(xxtea.decryptToString(input, key) ?? '');
     if (result is Map) {
       return result.cast<String, dynamic>();
     }
