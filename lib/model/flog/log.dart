@@ -42,15 +42,16 @@ class Log {
 
   /// create `Log` from json
   factory Log.fromJson(Map<String, dynamic> json) => Log(
-        className: json['className'] as String,
-        methodName: json['methodName'] as String,
-        text: json['text'] as String,
-        timestamp: json['timestamp'] as String,
-        timeInMillis: json['timeInMillis'] as int,
-        exception: json['exception'] as String,
-        dataLogType: json['dataLogType'] as String,
-        logLevel:
-            LogLevelConverter.fromStringToEnum(json['logLevel'] as String),
-        stacktrace: json['stacktrace'] as String,
+        className: json['className'] as String? ?? '',
+        methodName: json['methodName'] as String? ?? '',
+        text: json['text'] as String? ?? '',
+        timestamp: json['timestamp'] as String? ?? '',
+        timeInMillis: json['timeInMillis'] as int? ?? 0,
+        exception: json['exception'] as String? ?? '',
+        dataLogType: json['dataLogType'] as String? ?? '',
+        logLevel: LogLevelConverter.fromStringToEnum(
+          json['logLevel'] as String? ?? '',
+        ),
+        stacktrace: json['stacktrace'] as String? ?? '',
       );
 }
