@@ -36,7 +36,7 @@ class Log {
         'timeInMillis': timeInMillis,
         'exception': exception,
         'dataLogType': dataLogType,
-        'logLevel': LogLevelConverter.fromEnumToString(logLevel),
+        'logLevel': logLevel.toString(),
         'stacktrace': stacktrace,
       };
 
@@ -49,8 +49,8 @@ class Log {
         timeInMillis: json['timeInMillis'] as int? ?? 0,
         exception: json['exception'] as String? ?? '',
         dataLogType: json['dataLogType'] as String? ?? '',
-        logLevel: LogLevelConverter.fromStringToEnum(
-          json['logLevel'] as String? ?? '',
+        logLevel: LogLevel.values.firstWhere(
+          (level) => level.toString() == (json['logLevel'] as String? ?? ''),
         ),
         stacktrace: json['stacktrace'] as String? ?? '',
       );

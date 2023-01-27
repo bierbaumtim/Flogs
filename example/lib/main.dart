@@ -8,7 +8,7 @@ void main() {
   runApp(HomePage());
 }
 
-init() {
+void init() {
   /// Configuration example 1
 //  LogsConfig config = LogsConfig()
 //    ..isDebuggable = true
