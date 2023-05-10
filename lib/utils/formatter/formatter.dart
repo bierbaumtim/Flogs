@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../f_logs.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class Formatter {
   static String format(Log log, LogsConfig config) {
     String output;
