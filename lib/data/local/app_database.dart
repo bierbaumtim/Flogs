@@ -54,8 +54,9 @@ class AppDatabase {
     if (FLog.getDefaultConfigurations().encryptionEnabled &&
         FLog.getDefaultConfigurations().encryptionKey.isNotEmpty) {
       // Initialize the encryption codec with a user password
-      var codec = getXXTeaSembastCodec(
-          password: FLog.getDefaultConfigurations().encryptionKey);
+      final codec = getXXTeaSembastCodec(
+        password: FLog.getDefaultConfigurations().encryptionKey,
+      );
 
       database = await databaseFactoryIo.openDatabase(dbPath, codec: codec);
     } else {

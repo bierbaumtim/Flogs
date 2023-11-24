@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../f_logs.dart';
@@ -32,24 +31,10 @@ class LogsStorage {
     final path = "${await _localPath}/${Constants.DIRECTORY_NAME}";
 
     //creating directory
-    Directory(path).create()
-        // The created directory is returned as a Future.
-        .then((directory) {
-      debugPrint(directory.path);
-    });
+    await Directory(path).create();
 
     //opening file
-    var file = File("$path/flog.txt");
-    var isExist = await file.exists();
-
-    //check to see if file exist
-    if (isExist) {
-      debugPrint('File exists------------------>_getLocalFile()');
-    } else {
-      debugPrint('file does not exist---------->_getLocalFile()');
-    }
-
-    return file;
+    return File("$path/flog.txt");
   }
 
   /// Read the Log-String from file

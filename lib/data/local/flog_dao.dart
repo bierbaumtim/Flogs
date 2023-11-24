@@ -27,7 +27,7 @@ class FlogDao {
   }
 
   /// Updates the `log` in Database
-  Future update(Log log) async {
+  Future<void> update(Log log) async {
     // For filtering by key (ID), RegEx, greater than, and many other criteria,
     // we use a Finder.
     final finder = Finder(filter: Filter.byKey(log.id));
@@ -39,7 +39,7 @@ class FlogDao {
   }
 
   /// Deletes the `log` from Database
-  Future delete(Log log) async {
+  Future<void> delete(Log log) async {
     final finder = Finder(filter: Filter.byKey(log.id));
     await _flogsStore.delete(
       await _db,
@@ -53,11 +53,10 @@ class FlogDao {
       filter: Filter.and(filters ?? <Filter>[]),
     );
 
-    var deleted = await _flogsStore.delete(
+    return await _flogsStore.delete(
       await _db,
       finder: finder,
     );
-    return deleted;
   }
 
   /// Deletes all Logs from Database
@@ -71,8 +70,9 @@ class FlogDao {
   Future<List<Log>> getAllSortedByFilter({List<Filter>? filters}) async {
     //creating finder
     final finder = Finder(
-        filter: Filter.and(filters ?? <Filter>[]),
-        sortOrders: [SortOrder(DBConstants.FIELD_DATA_LOG_TYPE)]);
+      filter: Filter.and(filters ?? <Filter>[]),
+      sortOrders: [SortOrder(DBConstants.FIELD_DATA_LOG_TYPE)],
+    );
 
     final recordSnapshots = await _flogsStore.find(
       await _db,

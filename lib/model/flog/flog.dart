@@ -30,7 +30,7 @@ class FLog {
   /// @param methodName the method name
   /// @param text         the text
   /// @param type         the type
-  static void logThis({
+  static Future<void> logThis({
     String? className,
     String? methodName,
     required String text,
@@ -41,7 +41,7 @@ class FLog {
   }) async {
     // prevent to write LogLevel.ALL and LogLevel.OFF to db
     if (![LogLevel.OFF, LogLevel.ALL].contains(type)) {
-      _logThis(
+      await _logThis(
         text,
         type,
         className,
@@ -60,7 +60,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void trace({
+  static Future<void> trace({
     String? className,
     String? methodName,
     required String text,
@@ -68,7 +68,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.TRACE,
       className,
@@ -86,7 +86,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void debug({
+  static Future<void> debug({
     String? className,
     String? methodName,
     required String text,
@@ -94,7 +94,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.DEBUG,
       className,
@@ -112,7 +112,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void info({
+  static Future<void> info({
     String? className,
     String? methodName,
     required String text,
@@ -120,7 +120,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.INFO,
       className,
@@ -138,7 +138,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void warning({
+  static Future<void> warning({
     String? className,
     String? methodName,
     required String text,
@@ -146,7 +146,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.WARNING,
       className,
@@ -164,7 +164,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void error({
+  static Future<void> error({
     String? className,
     String? methodName,
     required String text,
@@ -172,7 +172,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.ERROR,
       className,
@@ -190,7 +190,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void severe({
+  static Future<void> severe({
     String? className,
     String? methodName,
     required String text,
@@ -198,7 +198,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.SEVERE,
       className,
@@ -216,7 +216,7 @@ class FLog {
   /// @param className    the class name
   /// @param methodName the method name
   /// @param text         the text
-  static void fatal({
+  static Future<void> fatal({
     String? className,
     String? methodName,
     required String text,
@@ -224,7 +224,7 @@ class FLog {
     String? dataLogType,
     StackTrace? stacktrace,
   }) async {
-    _logThis(
+    await _logThis(
       text,
       LogLevel.FATAL,
       className,
@@ -428,7 +428,7 @@ class FLog {
   /// @param methodName the method name
   /// @param text         the text
   /// @param type         the type
-  static void _logThis(
+  static Future<void> _logThis(
     String text,
     LogLevel type, [
     String? className,
@@ -436,7 +436,7 @@ class FLog {
     Exception? exception,
     String? dataLogType,
     StackTrace? stacktrace,
-  ]) {
+  ]) async {
     //check to see if className is not provided
     //then its already been taken from calling class
     if (className == null) {
@@ -469,7 +469,7 @@ class FLog {
       );
 
       //writing it to DB
-      _writeLogs(log);
+      await _writeLogs(log);
     } else {
       throw Exception(Constants.EXCEPTION_NOT_INIT);
     }

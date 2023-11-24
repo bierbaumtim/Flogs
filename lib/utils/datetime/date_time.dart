@@ -8,94 +8,65 @@ class DateTimeUtils {
 
   //DateTime Methods:-----------------------------------------------------------
   static int getCurrentTimeInMillis() {
-    final now = DateTime.now();
-    return now.millisecondsSinceEpoch;
+    return DateTime.now().millisecondsSinceEpoch;
   }
 
   static String getCurrentTimestamp(LogsConfig config) {
-    final now = DateTime.now();
-    return DateFormat(config.timestampFormat.toString()).format(now);
+    return DateFormat(config.timestampFormat.toString()).format(DateTime.now());
   }
 
   static String getTimeInMillis(LogsConfig config) {
-    final now = DateTime.now();
-    var fiftyDaysFromNow = now.add(Duration(days: -1));
+    final fiftyDaysFromNow = DateTime.now().subtract(Duration(days: 1));
+
     return DateFormat(config.timestampFormat.toString())
         .format(fiftyDaysFromNow);
   }
 
   static int getStartAndEndTimestamps({required FilterType type}) {
-    var startTimeInMillis = 0;
-
-    //filter types
-    const lastHour = "FilterType.LAST_HOUR";
-    const twentyFourHour = "FilterType.LAST_24_HOURS";
-    const today = "FilterType.TODAY";
-    const week = "FilterType.WEEK";
-    const all = "FilterType.ALL";
-
     //switch statement
-    switch (type.toString()) {
-      case lastHour:
+    switch (type) {
+      case FilterType.LAST_HOUR:
         // data/time now
-        var now = DateTime.now();
+        final now = DateTime.now();
         // last hour
-        var lh = now.subtract(Duration(hours: 1));
+        final lh = now.subtract(Duration(hours: 1));
         debugPrint('$lh');
-        startTimeInMillis = lh.millisecondsSinceEpoch;
-        break;
-      case twentyFourHour:
-        // data/time now
-        var now = DateTime.now();
+        return lh.millisecondsSinceEpoch;
+      case FilterType.LAST_24_HOURS:
         // last twenty four hours from now
-        var tfh = now.subtract(Duration(hours: 24));
+        final tfh = DateTime.now().subtract(Duration(hours: 24));
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
           debugPrint('$tfh');
         }
 
-        startTimeInMillis = tfh.millisecondsSinceEpoch;
-        break;
-      case today:
+        return tfh.millisecondsSinceEpoch;
+      case FilterType.TODAY:
         // data/time now
-        var now = DateTime.now();
+        final now = DateTime.now();
         // midnight today
-        var td = DateTime(now.year, now.month, now.day);
+        final td = DateTime(now.year, now.month, now.day);
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
           debugPrint('$td');
         }
 
-        startTimeInMillis = td.millisecondsSinceEpoch;
-        break;
-      case week:
+        return td.millisecondsSinceEpoch;
+      case FilterType.WEEK:
         // data/time now
-        var now = DateTime.now();
+        final now = DateTime.now();
         // midnight today
-        var td = DateTime(now.year, now.month, now.day);
+        final td = DateTime(now.year, now.month, now.day);
         // last week from today
-        var w = td.subtract(Duration(days: 7));
+        final w = td.subtract(Duration(days: 7));
         //print
         if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
           debugPrint('$w');
         }
 
-        startTimeInMillis = w.millisecondsSinceEpoch;
-        break;
-      case all:
-        // all: i am going to set it to 2019, coz i wrote this library in 2019
-        // no need to go all the way back to 1970
-        var all = DateTime(2019, 1, 1);
-
-        //print
-        if (FLog.getDefaultConfigurations().isDevelopmentDebuggingEnabled) {
-          debugPrint('$all');
-        }
-
-        startTimeInMillis = all.millisecondsSinceEpoch;
-        break;
+        return w.millisecondsSinceEpoch;
+      case FilterType.ALL:
+        return 0;
     }
-
-    return startTimeInMillis;
   }
 }
