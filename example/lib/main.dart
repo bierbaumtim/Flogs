@@ -34,7 +34,7 @@ void init() {
 //    ..timestampFormat = TimestampFormat.TIME_FORMAT_FULL_2;
 
   /// Configuration example 3 Format Custom
-  LogsConfig config = FLog.getDefaultConfigurations()
+  final config = FLog.getDefaultConfigurations()
     ..isDevelopmentDebuggingEnabled = true
     ..timestampFormat = TimestampFormat.TIME_FORMAT_FULL_3
     ..formatType = FormatType.FORMAT_CUSTOM
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
     return Row(
       children: <Widget>[
         _buildButton("Log Event", () {
-          for (int i = 0; i < 2; i++) {
+          for (var i = 0; i < 2; i++) {
             if (i % 2 == 0) {
               FLog.logThis(
                 className: "HomePage",
@@ -133,9 +133,7 @@ class _HomePageState extends State<HomePage> {
           }
         }),
         Padding(padding: EdgeInsets.symmetric(horizontal: 5.0)),
-        _buildButton("Print Logs", () {
-          FLog.printLogs();
-        }),
+        _buildButton("Print Logs", FLog.printLogs),
       ],
     );
   }
@@ -143,13 +141,9 @@ class _HomePageState extends State<HomePage> {
   Widget _buildRow2() {
     return Row(
       children: <Widget>[
-        _buildButton("Export Logs", () {
-          FLog.exportLogs();
-        }),
+        _buildButton("Export Logs", FLog.exportLogs),
         Padding(padding: EdgeInsets.symmetric(horizontal: 5.0)),
-        _buildButton("Clear Logs", () {
-          FLog.clearLogs();
-        }),
+        _buildButton("Clear Logs", FLog.clearLogs),
       ],
     );
   }
@@ -157,9 +151,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildRow3() {
     return Row(
       children: <Widget>[
-        _buildButton("Print File Logs", () {
-          FLog.printFileLogs();
-        }),
+        _buildButton("Print File Logs", FLog.printFileLogs),
         Padding(padding: EdgeInsets.symmetric(horizontal: 5.0)),
         _buildButton("Print Data Logs", () {
           FLog.printDataLogs(dataLogsType: [
